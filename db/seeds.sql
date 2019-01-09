@@ -1,31 +1,13 @@
-CREATE TABLE USERS(
-id INT AUTO_INCREMENT NOT NULL,
-username VARCHAR(100) NOT NULL,
-firstname VARCHAR(100) NOT NULL,
-lastName VARCHAR(100) NOT NULL,
-password VARCHAR(100) NOT NULL, 
-PRIMARY KEY(ID)
-);
+USE codex_db;
 
+INSERT INTO Users (username, firstName, lastName, password)
+VALUES ('PROGERS', 'PAUL', 'ROGERS', 'PASSWORD');
 
-CREATE TABLE snippets(
-id INT AUTO_INCREMENT NOT NULL,
-snippet VARCHAR(100) NOT NULL,
-language VARCHAR(100) NOT NULL,
-tags VARCHAR(100) NOT NULL,
-description VARCHAR(100) NOT NULL,
-createdat timestamp not null DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY(ID)
-);
+INSERT INTO Users (username, firstName, lastName, password)
+VALUES ('PROGERS', 'PAUL', 'ROGERS', 'PASSWORD');
 
-INSERT INTO USERS (USERNAME, FIRSTNAME, LASTNAME, PASSWORD)
-VALUES ('PROGERS', 'PAUL', 'ROGERS', 'PASSWORD')
+INSERT INTO Snippets (snippet, language, tags, description)
+VALUES ('function test(){ console.log...', 'JavaScript', 'Constuct + loops', 'loops in function');
 
-INSERT INTO USERS (USERNAME, FIRSTNAME, LASTNAME, PASSWORD)
-VALUES ('PROGERS', 'PAUL', 'ROGERS', 'PASSWORD')
-
-INSERT INTO SNIPPETS (SNIPPET, LANGUAGE, TAGS, DESCRIPTION)
-VALUES ('function test(){ console.log...', 'JavaScript', 'Constuct + loops', 'loops in function')
-
-INSERT INTO SNIPPETS (SNIPPET, LANGUAGE, TAGS, DESCRIPTION)
-VALUES ('function test(){ console.log...', 'JavaScript', 'Constuct + loops', 'loops in function')
+INSERT INTO Snippets (snippet, language, tags, description)
+VALUES ('function test(){ console.log...', 'JavaScript', 'Constuct + loops', 'loops in function');
