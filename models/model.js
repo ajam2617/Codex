@@ -31,7 +31,9 @@ module.exports = function(sequelize, DataTypes) {
           validate: {
             len: [1]
           }
-        }
+        },
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE
       }),
       Snippets: sequelize.define("Snippets", {
          snippet: {
@@ -62,7 +64,8 @@ module.exports = function(sequelize, DataTypes) {
                len: [1]
             }
          },
-         lastUpdate: Sequelize.DATE
+         createdAt: Sequelize.DATE,
+         updatedAt: Sequelize.DATE
       })
    }
 
