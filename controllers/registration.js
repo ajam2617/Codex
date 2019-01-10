@@ -16,7 +16,7 @@ router.post("/registration", function (req, res) {
 
    var newUser = req.body;
 
-   console.log("New user info: ", newUser);
+   // console.log("New user info: ", newUser);
 
    // searches username entered by new user. If username not taken, adds it to DB. If user IS taken, notifies user it is unavailable.
    db.Users.findOrCreate({

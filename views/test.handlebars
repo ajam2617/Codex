@@ -21,6 +21,7 @@
    </div>
    <button type="submit">Submit</button>
    <br>
+   <br>
    <div>
       <em><p id="newUserMessage"></p></em>
    </div>
@@ -41,6 +42,60 @@
 
       $.post("/registration", newUser).then(function(res) {
          $("#newUserMessage").text(res);
+      })
+   })
+</script>
+</div>
+
+<div>
+<h2>New Snippet Test</h2>
+<p>Fill out the form to create a new snippet.</p>
+<hr>
+<form id="newSnippet">
+   <div class="form-group">      
+      <label for="snippet">Snippet:</label>
+      <input type="text" name="snippet" id="snippet">
+   </div>
+   <div class="form-group">
+      <label for="language">Langauge (e.g. "Javascript"):</label>
+      <input type="text" name="language" id="language">
+   </div>
+   <div class="form-group">
+      <label for="tags">Tags:</label>
+      <input type="text" name="tags" id="tags">
+   </div>
+   <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" name="description" id="description">
+   </div>
+   <div class="form-group">
+      <label for="authorID">Author ID:</label>
+      <input type="number" name="authorID" id="authorID">
+   </div>
+   <button type="submit">Submit</button>
+   <br>
+   <br>
+   <div>
+      <em><p id="newSnippetMessage"></p></em>
+   </div>
+</form>
+<br>
+<hr>
+
+<script>
+   $("#newSnippet").on("submit", function(event) {
+      event.preventDefault();
+
+      var newSnippet = {
+         snippet: $("#snippet").val().trim(),
+         language: $("#language").val().trim(),
+         tags: $("#tags").val().trim(),
+         description: $("#description").val().trim(),
+         authorID: $("#authorID").val()
+      }
+
+      $.post("/dashboard", newSnippet).then(function(res) {
+         $("#newSnippetMessage").text(res);
       })
    })
 </script>

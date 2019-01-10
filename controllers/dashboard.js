@@ -7,7 +7,7 @@ var db = require("../models");
 router.get("/dashboard", function (req, res) {
    // will use sequelize query to retirve user-specific snippets and render to dashboard template
 
-   var authorID = 4;
+   var authorID = 1;
 
    db.Snippets.findAll({
       where: {
@@ -27,16 +27,18 @@ router.post("/dashboard", function (req, res) {
    // will take in req.body containing new snippet data to pass into the Snippets table
    // res.send(something)
 
-   var authorID = 4;
+   var newSnippet = req.body;
+
+   // console.log(newSnippet);
 
    db.Snippets.create({
-      snippet: "array.push(newItem)",
-      language: "Javascript",
-      tags: "arrays,push,method",
-      description: "Adds a new item to an array",
-      authorID: authorID
+      snippet: newSnippet.snippet,
+      language: newSnippet.language,
+      tags: newSnippet.tags,
+      description: newSnippet.description,
+      authorID: newSnippet.authorID
    }).then(function(result) {
-      console.log("Create Snippet Result: ", result.dataValues);
+      res.send("New snippet added to database!");
    })
 
 });
