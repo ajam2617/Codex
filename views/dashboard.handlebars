@@ -1,10 +1,16 @@
 <div class="container">
    <div class="row">
       <div class="col-lg-3" id="dashboard-nav">
-
+         {{#each languages}}
+         <div class="language-container">
+            <div class="language">
+               {{language}}
+            </div>
+         </div>
+         {{/each}}
       </div>
       <div class="col-lg-9" id="dashboard display">
-  
+
       </div>
    </div>
 </div>

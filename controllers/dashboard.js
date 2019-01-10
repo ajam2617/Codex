@@ -13,13 +13,32 @@ router.get("/dashboard", function (req, res) {
       where: {
          authorID: authorID
       }
-   }).then(function (result) {
-      for(var i = 0; i < result.length; i++) {
-         console.log("Dashboard Result: ", result[i].dataValues);
-      }
-   })
+   }).then(function (snippetData) {
+      
+      // Will hold one of each language found in database
+      var tracker = {}
 
-   res.render("dashboard");
+      // will hold array of all unique languages to be passed to dashboard template
+      var hbsObject = {
+         languages: []
+      };
+      
+      // finds each language/ignores duplicates
+      for (var i = 0; i < snippetData.length; i++) {
+         if (!tracker[snippetData[i].dataValues.language]) {
+
+            // adds each new language to tracker and hbsObject
+            tracker[snippetData[i].dataValues.language] = true;
+            hbsObject.languages.push({language: snippetData[i].dataValues.language});
+
+            // categorizes tags by language
+            hbsObject[]
+         }
+      }
+
+      // renders languages to dashboard template
+      res.render("dashboard", hbsObject);
+   })
 });
 
 // takes new snippet submissions from dashboard
@@ -37,7 +56,7 @@ router.post("/dashboard", function (req, res) {
       tags: newSnippet.tags,
       description: newSnippet.description,
       authorID: newSnippet.authorID
-   }).then(function(result) {
+   }).then(function (result) {
       res.send("New snippet added to database!");
    })
 
@@ -62,7 +81,7 @@ router.put("/dashboard", function (req, res) {
             id: parseInt(updateSnippet.id)
          }
       }
-   ).then(function(result) {
+   ).then(function (result) {
       res.send("Snippet info updated!");
    })
 });
