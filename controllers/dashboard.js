@@ -45,26 +45,25 @@ router.post("/dashboard", function (req, res) {
 
 // takes snippet updates from dashboard
 router.put("/dashboard", function (req, res) {
-   // will take in req.body containing updated snippet data to update one row in the Snippets table
-   // res.send(something)
 
-   // id of snippet to be edited
-   var snippetID = 7;
+   var updateSnippet = req.body;
+
+   // console.log(updateSnippet);
 
    db.Snippets.update(
       {
-         snippet: "snippet",
-         language: "made up lang",
-         tags: "lolwhattags",
-         description: "this one makes no sense"
+         snippet: updateSnippet.snippet,
+         language: updateSnippet.language,
+         tags: updateSnippet.tags,
+         description: updateSnippet.description
       },
       {
          where: {
-            id: snippetID
+            id: parseInt(updateSnippet.id)
          }
       }
    ).then(function(result) {
-      console.log("Update Result: ", result);
+      res.send("Snippet info updated!");
    })
 });
 

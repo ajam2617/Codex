@@ -100,3 +100,61 @@
    })
 </script>
 </div>
+
+<div>
+<h2>Update Snippet Test</h2>
+<p>Fill out the form to update a new snippet. Blank fields will result in empty columns in the row.</p>
+<hr>
+<form id="updateSnippet">
+   <div class="form-group">      
+      <label for="id">ID of the snippet you want to update:</label>
+      <input type="number" name="id" id="id">
+   </div>
+   <div class="form-group">      
+      <label for="updateSnippet">Snippet:</label>
+      <input type="text" name="updateSnippet" id="updateSnippetInput">
+   </div>
+   <div class="form-group">
+      <label for="updateLanguage">Langauge (e.g. "Javascript"):</label>
+      <input type="text" name="updateLanguage" id="updateLanguage">
+   </div>
+   <div class="form-group">
+      <label for="updateTags">Tags:</label>
+      <input type="text" name="updateTags" id="updateTags">
+   </div>
+   <div class="form-group">
+      <label for="updateDescription">Description:</label>
+      <input type="text" name="updateDescription" id="updateDescription">
+   </div>
+   <button type="submit">Submit</button>
+   <br>
+   <br>
+   <div>
+      <em><p id="updateSnippetMessage"></p></em>
+   </div>
+</form>
+<br>
+<hr>
+
+<script>
+   $("#updateSnippet").on("submit", function(event) {
+      event.preventDefault();
+
+      var updateSnippet = {
+         id: $("#id").val(),
+         snippet: $("#updateSnippetInput").val().trim(),
+         language: $("#updateLanguage").val().trim(),
+         tags: $("#updateTags").val().trim(),
+         description: $("#updateDescription").val().trim(),
+      }
+
+      $.ajax({
+         method: "PUT",
+         url: "/dashboard",
+         data: updateSnippet
+      }).then(function(res){
+         $("#updateSnippetMessage").text(res);
+      });
+   })
+</script>
+</div>
