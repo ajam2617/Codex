@@ -1,16 +1,48 @@
+/* index.handlebars styling */
 #navBar {
-   padding: 4px;
-   
+   padding: 4px;   
 }
-
 hr {
    border-color: black;
 }
-
 #recentSnips {
    border-style: solid;
+   border-radius: 25px;
    border-width: 2px;
    border-color: black;
    color: black;
    text-align: center;
+   height: 300px;
+   width: 300px;
 }
+#getStarted {
+   margin-left: 300px;
+}
+.icons {
+   height: 30px;
+   width: 30px;
+}
+/***********/
+/* registration.handlebars styling */
+form {
+   border-style: solid;
+   border-width: 2px;
+   border-color: black;
+   border-radius: 25px;
+   padding: 25px;
+}
+#logo {
+   text-align: center;
+}
+#tutorial {
+   text-align: center;
+}
+.icon {
+   height: 40px;
+   widows: 40px;
+}
+/***********/
+/* Library.handlebars styling */
+/***********/
+/* dashboard.handlebars styling */
+/***********/

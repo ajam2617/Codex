@@ -15,25 +15,46 @@ router.get("/dashboard", function (req, res) {
       }
    }).then(function (snippetData) {
       
+      // for (var i = 0; i < snippetData.length; i++) {
+      //    console.log(snippetData[i].dataValues);
+      // }
+
       // Will hold one of each language found in database
-      var tracker = {}
+      var tracker = {};
+
+      // finds each language/ignores duplicates
+      for (var i = 0; i < snippetData.length; i++) {
+         if (!tracker[snippetData[i].dataValues.language]) {
+            tracker[snippetData[i].dataValues.language] = {};            
+         }
+
+         var tagsTemp = snippetData[i].dataValues.tags.split(",");
+         
+         for (var j = 0; j < tagsTemp.length; j++) {
+            var tag = tagsTemp[j]
+            if (!tracker[snippetData[i].dataValues.language][tag]) {
+               tracker[snippetData[i].dataValues.language][tag] = true;
+            }
+         }
+      }
+
+      // console.log("TRACKER: ", tracker);
 
       // will hold array of all unique languages to be passed to dashboard template
       var hbsObject = {
          languages: []
       };
-      
-      // finds each language/ignores duplicates
-      for (var i = 0; i < snippetData.length; i++) {
-         if (!tracker[snippetData[i].dataValues.language]) {
 
-            // adds each new language to tracker and hbsObject
-            tracker[snippetData[i].dataValues.language] = true;
-            hbsObject.languages.push({language: snippetData[i].dataValues.language});
+      for (var key in tracker) {
+         var newObj = {};
+         newObj.language = key;
+         newObj.tags = [];
 
-            // categorizes tags by language
-            hbsObject[]
+         for (var subKey in tracker[key]) {
+            newObj.tags.push({tag: subKey});
          }
+
+         hbsObject.languages.push(newObj);
       }
 
       // renders languages to dashboard template
