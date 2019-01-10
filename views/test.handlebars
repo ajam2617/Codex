@@ -1,0 +1,47 @@
+<div>
+<h2>Registration Test</h2>
+<p>Fill out the form to register a new user to the database.</p>
+<hr>
+<form id="newUser">
+   <div class="form-group">      
+      <label for="firstName">First Name:</label>
+      <input type="text" name="firstName" id="firstName">
+   </div>
+   <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input type="text" name="lastName" id="lastName">
+   </div>
+   <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username">
+   </div>
+   <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="text" name="password" id="password">
+   </div>
+   <button type="submit">Submit</button>
+   <br>
+   <div>
+      <em><p id="newUserMessage"></p></em>
+   </div>
+</form>
+<br>
+<hr>
+
+<script>
+   $("#newUser").on("submit", function(event) {
+      event.preventDefault();
+
+      var newUser = {
+         firstName: $("#firstName").val().trim(),
+         lastName: $("#lastName").val().trim(),
+         username: $("#username").val().trim(),
+         password: $("#password").val().trim()
+      }
+
+      $.post("/registration", newUser).then(function(res) {
+         $("#newUserMessage").text(res);
+      })
+   })
+</script>
+</div>
