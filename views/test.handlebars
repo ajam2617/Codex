@@ -94,7 +94,7 @@
          authorID: $("#authorID").val()
       }
 
-      $.post("/dashboard", newSnippet).then(function(res) {
+      $.post("/dashboard/newSnippet", newSnippet).then(function(res) {
          $("#newSnippetMessage").text(res);
       })
    })
@@ -150,10 +150,48 @@
 
       $.ajax({
          method: "PUT",
-         url: "/dashboard",
+         url: "/dashboard/updateSnippet",
          data: updateSnippet
       }).then(function(res){
          $("#updateSnippetMessage").text(res);
+      });
+   })
+</script>
+</div>
+
+<div>
+<h2>Delete Snippet Test</h2>
+<p>Fill out the form to delete a snippet.</p>
+<hr>
+<form id="deleteSnippet">
+   <div class="form-group">      
+      <label for="deleteId">ID of the snippet you want to delete:</label>
+      <input type="number" name="deleteId" id="deleteId">
+   </div>
+   <button type="submit">Submit</button>
+   <br>
+   <br>
+   <div>
+      <em><p id="deleteSnippetMessage"></p></em>
+   </div>
+</form>
+<br>
+<hr>
+
+<script>
+   $("#deleteSnippet").on("submit", function(event) {
+      event.preventDefault();
+
+      var deleteSnippet = {
+         id: $("#deleteId").val(),
+      }
+
+      $.ajax({
+         method: "DELETE",
+         url: "/dashboard/deleteSnippet",
+         data: deleteSnippet
+      }).then(function(res){
+         $("#deleteSnippetMessage").text(res);
       });
    })
 </script>

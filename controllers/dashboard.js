@@ -14,10 +14,10 @@ router.get("/dashboard", function (req, res) {
          authorID: authorID
       }
    }).then(function (snippetData) {
-      
-      // for (var i = 0; i < snippetData.length; i++) {
-      //    console.log(snippetData[i].dataValues);
-      // }
+
+      for (var i = 0; i < snippetData.length; i++) {
+         console.log(snippetData[i].dataValues);
+      }
 
       // Will hold one of each language found in database
       var tracker = {};
@@ -25,11 +25,11 @@ router.get("/dashboard", function (req, res) {
       // finds each language/ignores duplicates
       for (var i = 0; i < snippetData.length; i++) {
          if (!tracker[snippetData[i].dataValues.language]) {
-            tracker[snippetData[i].dataValues.language] = {};            
+            tracker[snippetData[i].dataValues.language] = {};
          }
 
          var tagsTemp = snippetData[i].dataValues.tags.split(",");
-         
+
          for (var j = 0; j < tagsTemp.length; j++) {
             var tag = tagsTemp[j]
             if (!tracker[snippetData[i].dataValues.language][tag]) {
@@ -51,7 +51,7 @@ router.get("/dashboard", function (req, res) {
          newObj.tags = [];
 
          for (var subKey in tracker[key]) {
-            newObj.tags.push({tag: subKey});
+            newObj.tags.push({ tag: subKey });
          }
 
          hbsObject.languages.push(newObj);
@@ -63,7 +63,7 @@ router.get("/dashboard", function (req, res) {
 });
 
 // takes new snippet submissions from dashboard
-router.post("/dashboard", function (req, res) {
+router.post("/dashboard/newSnippet", function (req, res) {
    // will take in req.body containing new snippet data to pass into the Snippets table
    // res.send(something)
 
@@ -84,7 +84,7 @@ router.post("/dashboard", function (req, res) {
 });
 
 // takes snippet updates from dashboard
-router.put("/dashboard", function (req, res) {
+router.put("/dashboard/updateSnippet", function (req, res) {
 
    var updateSnippet = req.body;
 
@@ -104,6 +104,19 @@ router.put("/dashboard", function (req, res) {
       }
    ).then(function (result) {
       res.send("Snippet info updated!");
+   })
+});
+
+//deletes a snippet based on id
+
+router.delete("/dashboard/deleteSnippet", function (req, res) {
+
+   var id = req.body.id;
+
+   db.Snippets.destroy({
+      where: { id: id }
+   }).then(function (result) {
+      res.send("Snippet has been deleted!");
    })
 });
 
