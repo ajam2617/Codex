@@ -89,10 +89,13 @@
             var language = $("<p>").text("Language: " + res[i].language).addClass("font-weight-bold");
             var tags = $("<p>").text("Tags: " + res[i].tags).addClass("font-weight-bold");
             var description = $("<p>").text("Description: " + res[i].description).addClass("font-weight-bold");
+            
+            var btnContainer = $("<div>").addClass("container").addClass("p-0");
+            var deleteButton = $("<button>").attr("id", "deleteSnippet").attr("data-id", res[i].id).text("Delete Snippet").addClass("btn delete-button mr-3");
+            var editButton = $("<button>").attr("id", "editSnippet").attr("data-id", res[i].id).text("Edit Snippet").addClass("btn edit-button")
+            btnContainer.append(deleteButton, editButton);
 
-            var deleteButton = $("<button>").attr("id", "deleteSnippet").attr("data-id", res[i].id).text("Delete Snippet").addClass("btn delete-button mt-3");
-
-            newCard.append(snippet, language, tags, description, deleteButton);
+            newCard.append(snippet, language, tags, description, btnContainer);
 
             $("#dashboard-display").append(newCard);
          }
