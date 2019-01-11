@@ -3,7 +3,7 @@ var Sequelize = require("sequelize");
 module.exports = function (sequelize, DataTypes) {
 
    var Users = sequelize.define("Users", {
-      username: {
+      email: {
          type: DataTypes.STRING,
          allowNull: false,
          validate: {

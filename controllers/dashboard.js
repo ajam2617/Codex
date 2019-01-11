@@ -7,11 +7,13 @@ var db = require("../models");
 router.get("/dashboard", function (req, res) {
    // will use sequelize query to retirve user-specific snippets and render to dashboard template
 
-   var authorID = 1;
+   var activeUserId = req.user.id;
+
+   // console.log("USERINFO: ", userinfo);
 
    db.Snippets.findAll({
       where: {
-         authorID: authorID
+         authorID: activeUserId
       }
    }).then(function (snippetData) {
 
@@ -163,6 +165,20 @@ router.get("/api/dashboard/:language/:tag", function(req, res) {
       // console.log("RESPONSE ARRAY: ", responseArray);
 
       res.json(responseArray);
+   });
+})
+
+router.get("/api/getby/:id", function(req, res) {
+   var id = req.params.id;
+
+   console.log("ID: ", id);
+
+   db.Snippets.findOne({
+      where: {
+         id: id
+      }
+   }).then(function(result) {
+      res.send(result);
    });
 
 })

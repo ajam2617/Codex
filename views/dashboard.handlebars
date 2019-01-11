@@ -1,7 +1,7 @@
 <div id="main-container">
    <nav class="navbar navbar-light bg-light" id="codex-navbar">
       <div class="col-4">
-         <span class="navbar-brand mb-0 h1">Codex</span>
+         <span class="navbar-brand mb-0 h1">CODEX</span>
       </div>
       <div class="col-8 d-flex justify-content-end">
          <input type="search" id="search-bar">
@@ -30,6 +30,7 @@
             {{/each}}
          </div>
          <div class="col-9" id="dashboard-display">
+
          </div>
       </div>
    </div>
@@ -48,7 +49,7 @@
 
       $(".language").on("click", function () {
          var active = $(this).attr("data-active");
-        
+
          if (active === "false") {
             $(this).attr("data-active", "true");
 
@@ -73,12 +74,15 @@
 
          $.get(queryURL).then(function (res) {
             $("#dashboard-display").empty();
+            var langTitle = $("<h2>").text(snippetLanguage + " Snippets").addClass("m-4");
+            $("#dashboard-display").append(langTitle);
             createCards(res);
          })
       })
 
       function createCards(res) {
          for (var i = 0; i < res.length; i++) {
+
             var newCard = $("<div>").addClass("card p-4 m-4");
 
             var snippet = $("<pre>");
@@ -89,15 +93,17 @@
             var language = $("<p>").text("Language: " + res[i].language).addClass("font-weight-bold");
             var tags = $("<p>").text("Tags: " + res[i].tags).addClass("font-weight-bold");
             var description = $("<p>").text("Description: " + res[i].description).addClass("font-weight-bold");
-            
+
             var btnContainer = $("<div>").addClass("container").addClass("p-0");
-            var deleteButton = $("<button>").attr("id", "deleteSnippet").attr("data-id", res[i].id).text("Delete Snippet").addClass("btn delete-button mr-3");
-            var editButton = $("<button>").attr("id", "editSnippet").attr("data-id", res[i].id).text("Edit Snippet").addClass("btn edit-button")
+            var deleteButton = $("<button>").attr("data-id", res[i].id).text("Delete Snippet").addClass("btn delete-button mr-3");
+            var editButton = $("<button>").attr("data-id", res[i].id).text("Edit Snippet").addClass("btn edit-button");
             btnContainer.append(deleteButton, editButton);
 
             newCard.append(snippet, language, tags, description, btnContainer);
 
             $("#dashboard-display").append(newCard);
+
+            $("pre code").each(function(i, e) {hljs.highlightBlock(e)});
          }
       }
 
@@ -138,8 +144,7 @@
          })
       })
 
-      $(document).on("click", "#deleteSnippet", function (event) {
-         event.preventDefault();
+      $(document).on("click", ".delete-button", function (event) {
 
          var id = $(this).attr("data-id");
 
@@ -156,5 +161,59 @@
          });
       })
 
+      $(document).on("click", ".edit-button", function (event) {
+
+         var id = $(this).attr("data-id");
+         console.log(id);
+         var queryURL = "/api/getby/" + id;
+         console.log(queryURL);
+
+         $.get(queryURL).then(function (res) {
+            console.log(res);
+
+            $("#dashboard-display").empty();
+
+            var newCard = $("<div>").addClass("card p-4 m-4");
+            var newForm = $("<form>").attr("id", "editSnippet").attr("data-id", res.id);
+            var snippetLabel = $("<label>").text("Snippet");
+            var snippetInput = $("<textarea>").attr("cols", "50").attr("rows", "10").attr("id", "contentSnippet").addClass("form-control").text(res.snippet);
+            var langLabel = $("<label>").text("Language").addClass("mt-3");
+            var langInput = $("<textarea>").attr("id", "contentLanguage").addClass("form-control").attr("rows", "1").text(res.language);
+            var tagLabel = $("<label>").text("Tags (For now, put commas between each tag. No spaces.)").addClass("mt-3");
+            var tagInput = $("<textarea>").attr("id", "contentTags").addClass("form-control").attr("rows", "1").text(res.tags);
+            var descLabel = $("<label>").text("Description").addClass("mt-3");
+            var descInput = $("<textarea>").attr("id", "contentDescription").addClass("form-control").attr("rows", "1").text(res.description);
+            var submit = $("<button>").attr("type", "submit").text("Submit").addClass("btn submit-button mt-3")
+
+            newForm.append(snippetLabel, snippetInput, langLabel, langInput, tagLabel, tagInput, descLabel, descInput, submit);
+            newCard.append(newForm);
+
+            $("#dashboard-display").append(newCard);
+         })
+      })
+
+      $(document).on("submit", "#editSnippet", function (event) {
+         event.preventDefault();
+
+         var id = $("#editSnippet").attr("data-id");
+
+         // console.log(id);
+
+         var updateSnippet = {
+            snippet: $("#contentSnippet").val(),
+            language: $("#contentLanguage").val().trim(),
+            tags: $("#contentTags").val().trim(),
+            description: $("#contentDescription").val().trim(),
+            id: id
+         }
+
+         $.ajax({
+            method: "PUT",
+            url: "/dashboard/updateSnippet",
+            data: updateSnippet
+         }).then(function(res) {
+            location.reload();
+         })
+      })
    })
 </script>
