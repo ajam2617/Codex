@@ -6,7 +6,7 @@
       <div class="row">
          <div class="col-3" id="dashboard-nav">
             {{#each languages}}
-            <div class="language-container">
+            <div class="language-container" id="{{language}}">
                <div class="language" data-lang="{{language}}">
                   {{language}}
                </div>
@@ -29,6 +29,18 @@
 
 <script>
 $(function() {
+
+   $(".tag").hide();
+
+   $(".language-container").on("click", function() {
+      
+      var id = $(this).attr("id");
+
+      console.log(id);
+      
+      $("#" + id + " .tag").toggle();
+   });
+
    $(".language").on("click", function() {
 
       var snippetLanguage = $(this).attr("data-lang")

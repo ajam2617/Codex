@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
 
    var Snippets = sequelize.define("Snippets", {
       snippet: {
-         type: DataTypes.STRING,
+         type: DataTypes.STRING(5000),
          allowNull: false,
          validate: {
             len: [1]
