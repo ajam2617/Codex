@@ -11,7 +11,7 @@
    <div class="container-fluid" id="dashboard-container">
       <div class="row">
          <div class="col-3" id="dashboard-nav">
-            <div id="manage-snippets-button">Manage Snippets</div>
+            <div id="new-snippet-button">+ New Snippet</div>
             {{#each languages}}
             <div class="language-container" id="{{language}}">
                <div class="language" data-lang="{{language}}" data-active="false">
@@ -100,6 +100,43 @@
             $("#dashboard-display").append(newCard);
          }
       }
+
+      $("#new-snippet-button").on("click", function () {
+         $("#dashboard-display").empty();
+
+         var newCard = $("<div>").addClass("card p-4 m-4");
+         var newForm = $("<form>").attr("id", "newSnippet");
+         var snippetLabel = $("<label>").text("Snippet");
+         var snippetInput = $("<textarea>").attr("cols", "50").attr("rows", "10").attr("id", "contentSnippet").addClass("form-control");
+         var langLabel = $("<label>").text("Language").addClass("mt-3");
+         var langInput = $("<input>").attr("type", "text").attr("id", "contentLanguage").addClass("form-control");
+         var tagLabel = $("<label>").text("Tags (For now, put commas between each tag. No spaces.)").addClass("mt-3");
+         var tagInput = $("<input>").attr("type", "text").attr("id", "contentTags").addClass("form-control");
+         var descLabel = $("<label>").text("Description").addClass("mt-3");
+         var descInput = $("<input>").attr("type", "text").attr("id", "contentDescription").addClass("form-control");
+         var submit = $("<button>").attr("type", "submit").text("Submit").addClass("btn btn-success mt-3")
+
+         newForm.append(snippetLabel, snippetInput, langLabel, langInput, tagLabel, tagInput, descLabel, descInput, submit);
+         newCard.append(newForm);
+
+         $("#dashboard-display").append(newCard);
+      })
+
+      $(document).on("submit", "#newSnippet", function (event) {
+         event.preventDefault();
+
+         var newSnippet = {
+            snippet: $("#contentSnippet").val(),
+            language: $("#contentLanguage").val().trim(),
+            tags: $("#contentTags").val().trim(),
+            description: $("#contentDescription").val().trim(),
+            authorID: 1
+         }
+
+         $.post("/dashboard/newSnippet", newSnippet).then(function (res) {
+            location.reload();
+         })
+      })
 
    })
 </script>

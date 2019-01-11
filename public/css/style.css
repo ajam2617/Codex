@@ -24,13 +24,13 @@ hr {
 }
 /***********/
 /* registration.handlebars styling */
-form {
+/* form {
    border-style: solid;
    border-width: 2px;
    border-color: black;
    border-radius: 25px;
    padding: 25px;
-}
+} */
 #logo {
    text-align: center;
 }
@@ -104,14 +104,14 @@ body {
    overflow-x: hidden;
 }
 
-#manage-snippets-button {
+#new-snippet-button {
    padding: 10px 20px;
    font-size: 20px;
    border-bottom: 1px solid rgb(235, 235, 235);
    transition: color 300ms;
 }
 
-#manage-snippets-button:hover {
+#new-snippet-button:hover {
    color: rgb(58, 205, 102);
 }
 
