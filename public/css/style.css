@@ -52,7 +52,7 @@ body {
 
 #codex-navbar {
    height: 10%;
-   border-bottom: 1px solid lightgrey;
+   border-bottom: 1px solid rgb(235, 235, 235);
    background: #3CA55C;
    background: -webkit-linear-gradient(to left, rgb(45, 159, 79), rgb(36, 128, 64));
    background: linear-gradient(to left, rgb(58, 205, 102), rgb(28, 160, 68));
@@ -66,8 +66,8 @@ body {
 
 #dashboard-nav {
    background-color: rgb(33,33,33);
-   border-right: 1px solid lightgrey;
-   color: rgb(235, 235, 235);
+   border-right: 1px solid rgb(235, 235, 235);
+   color: white;
    padding: 0;
 
    height: 90%;
@@ -80,7 +80,7 @@ body {
 }
 
 .language-container {
-   border-bottom: 1px solid lightgrey;
+   border-bottom: 1px solid rgb(235, 235, 235);
 }
 
 .language {
@@ -89,7 +89,7 @@ body {
 }
 
 .tag {
-   border-top: 1px solid lightgrey;
+   border-top: 1px solid rgb(235, 235, 235);
    padding: 5px 40px;
 }
 
