@@ -43,6 +43,68 @@ form {
 }
 /***********/
 /* Library.handlebars styling */
+
 /***********/
 /* dashboard.handlebars styling */
+body {
+   overscroll-behavior: none;
+}
+
+#codex-navbar {
+   height: 10%;
+   background: #3CA55C;
+   background: -webkit-linear-gradient(to left, rgb(45, 159, 79), rgb(36, 128, 64));
+   background: linear-gradient(to left, rgb(58, 205, 102), rgb(28, 160, 68));
+}
+
+.navbar-brand {
+   color: white!important;
+   letter-spacing: 3px;
+   font-size: 25px;
+}
+
+#dashboard-nav {
+   background-color: rgb(33,33,33);
+   border-top: 1px solid lightgrey;
+   border-right: 1px solid lightgrey;
+   color: rgb(235, 235, 235);
+   padding: 0;
+
+   height: 90%;
+   width: 30%;
+   position: fixed;
+   z-index: -1;
+   bottom: 0;
+   left: 0;
+   overflow-x: hidden;
+}
+
+.language-container {
+   border-bottom: 1px solid lightgrey;
+}
+
+.language {
+   padding: 10px 20px;
+   font-size: 20px;
+   /* font-weight: bold; */
+}
+
+.tag {
+   border-top: 1px solid lightgrey;
+   padding: 5px 40px;
+}
+
+#dashboard-display {
+   background-color: rgb(235, 235, 235);
+   border-top: 1px solid lightgrey;
+   width: 100%;
+   padding: 0;
+   height: 90%;
+   width: 75%;
+   position: fixed;
+   z-index: -1;
+   bottom: 0;
+   right: 0;
+   overflow-x: hidden;
+}
 /***********/

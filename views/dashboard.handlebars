@@ -1,23 +1,28 @@
-<div class="container-fluid">
-   <div class="row">
-      <div class="col-lg-3" id="dashboard-nav">
-         {{#each languages}}
-         <div class="language-container">
-            <div class="language">
-               {{language}}
-            </div>
-            
-            {{#each tags}}
-            <div class="tag">
-            {{tag}}
+<div id="main-container">
+   <nav class="navbar navbar-light bg-light" id="codex-navbar">
+      <span class="navbar-brand mb-0 h1">Codex</span>
+   </nav>
+   <div class="container-fluid" id="dashboard-container">
+      <div class="row">
+         <div class="col-3" id="dashboard-nav">
+            {{#each languages}}
+            <div class="language-container">
+               <div class="language">
+                  {{language}}
+               </div>
+
+               {{#each tags}}
+               <div class="tag">
+                  {{tag}}
+               </div>
+               {{/each}}
+
             </div>
             {{/each}}
-
          </div>
-         {{/each}}
-      </div>
-      <div class="col-lg-9" id="dashboard display">
-
+         <div class="col-9" id="dashboard-display">
+            
+         </div>
       </div>
    </div>
 </div>
