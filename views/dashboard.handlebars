@@ -11,9 +11,10 @@
    <div class="container-fluid" id="dashboard-container">
       <div class="row">
          <div class="col-3" id="dashboard-nav">
+            <div id="manage-snippets-button">Manage Snippets</div>
             {{#each languages}}
             <div class="language-container" id="{{language}}">
-               <div class="language" data-lang="{{language}}">
+               <div class="language" data-lang="{{language}}" data-active="false">
                   {{language}}
                </div>
 
@@ -27,7 +28,6 @@
             {{/each}}
          </div>
          <div class="col-9" id="dashboard-display">
-
          </div>
       </div>
    </div>
@@ -49,13 +49,25 @@
 
       $(".language").on("click", function () {
 
-         var snippetLanguage = $(this).attr("data-lang")
-         var queryURL = "/api/dashboard/" + snippetLanguage;
+         var active = $(this).attr("data-active");
 
-         $.get(queryURL).then(function (res) {
-            $("#dashboard-display").empty();
-            createCards(res);
-         })
+         if (active === "false") {
+
+            $(this).attr("data-active", "true");
+
+            var snippetLanguage = $(this).attr("data-lang");
+            var queryURL = "/api/dashboard/" + snippetLanguage;
+
+            $.get(queryURL).then(function (res) {
+               $("#dashboard-display").empty();
+               var langTitle = $("<h2>").text(snippetLanguage + " Snippets").addClass("m-4");
+               $("#dashboard-display").append(langTitle);
+               createCards(res);
+            })
+
+         } else {
+            $(this).attr("data-active", "false");
+         }
 
       })
 
