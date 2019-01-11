@@ -83,6 +83,7 @@ router.post("/dashboard/newSnippet", function (req, res) {
 
 });
 
+// THIS SHOULD BE UPDATED WITH /:ATTR AT THE END TO EDIT ONE COLUMN AT A TIME
 // takes snippet updates from dashboard
 router.put("/dashboard/updateSnippet", function (req, res) {
 
@@ -108,7 +109,6 @@ router.put("/dashboard/updateSnippet", function (req, res) {
 });
 
 //deletes a snippet based on id
-
 router.delete("/dashboard/deleteSnippet", function (req, res) {
 
    var id = req.body.id;
@@ -119,5 +119,8 @@ router.delete("/dashboard/deleteSnippet", function (req, res) {
       res.send("Snippet has been deleted!");
    })
 });
+
+// route for /dashboard/:language
+// route for /dashboard/language/:tag
 
 module.exports = router;
