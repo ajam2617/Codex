@@ -15,9 +15,9 @@ router.get("/dashboard", function (req, res) {
       }
    }).then(function (snippetData) {
 
-      for (var i = 0; i < snippetData.length; i++) {
-         console.log(snippetData[i].dataValues);
-      }
+      // for (var i = 0; i < snippetData.length; i++) {
+      //    console.log(snippetData[i].dataValues);
+      // }
 
       // Will hold one of each language found in database
       var tracker = {};
@@ -136,5 +136,35 @@ router.get("/api/dashboard/:language", function(req, res) {
 
 })
 // route for /dashboard/language/:tag
+router.get("/api/dashboard/:language/:tag", function(req, res) {
+   var language = req.params.language;
+   var tag = req.params.tag;
+   var authorID = 1;
+
+   // console.log(language, tag);
+
+   db.Snippets.findAll({
+      where: {
+         authorId: authorID,
+         language: language
+      }
+   }).then(function(result) {
+      
+      var responseArray = [];
+
+      for (var i = 0; i < result.length; i++) {
+         // console.log("RESULT: ", result[i].dataValues);
+         var tags = result[i].dataValues.tags.split(",");
+         if(tags.includes(tag)) {
+            responseArray.push(result[i].dataValues);
+         }
+      }
+
+      // console.log("RESPONSE ARRAY: ", responseArray);
+
+      res.json(responseArray);
+   });
+
+})
 
 module.exports = router;

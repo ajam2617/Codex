@@ -6,7 +6,7 @@
       <div class="col-8 d-flex justify-content-end">
          <input type="search" id="search-bar">
          <button id="login-button">Login</button>
-      </div>   
+      </div>
    </nav>
    <div class="container-fluid" id="dashboard-container">
       <div class="row">
@@ -18,7 +18,7 @@
                </div>
 
                {{#each tags}}
-               <div class="tag">
+               <div class="tag" data-tag="{{tag}}">
                   {{tag}}
                </div>
                {{/each}}
@@ -27,54 +27,67 @@
             {{/each}}
          </div>
          <div class="col-9" id="dashboard-display">
-            
+
          </div>
       </div>
    </div>
 </div>
 
 <script>
-$(function() {
+   $(function () {
 
-   $(".tag").hide();
+      $(".tag").hide();
 
-   $(".language-container").on("click", function() {
-      
-      var id = $(this).attr("id");
+      $(".language").on("click", function () {
 
-      console.log(id);
-      
-      $("#" + id + " .tag").toggle();
-   });
+         var id = $(this).attr("data-lang");
 
-   $(".language").on("click", function() {
+         console.log(id);
 
-      var snippetLanguage = $(this).attr("data-lang")
-      var queryURL = "/api/dashboard/" + snippetLanguage;
+         $("#" + id + " .tag").toggle();
+      });
 
-      $.get(queryURL).then(function(res) {
+      $(".language").on("click", function () {
 
-         $("#dashboard-display").empty();
+         var snippetLanguage = $(this).attr("data-lang")
+         var queryURL = "/api/dashboard/" + snippetLanguage;
 
+         $.get(queryURL).then(function (res) {
+            $("#dashboard-display").empty();
+            createCards(res);
+         })
+
+      })
+
+      $(".tag").on("click", function () {
+         var snippetLanguage = $(this).parent().attr("id")
+         var snippetTag = $(this).attr("data-tag")
+         var queryURL = "/api/dashboard/" + snippetLanguage + "/" + snippetTag;
+
+         $.get(queryURL).then(function (res) {
+            $("#dashboard-display").empty();
+            createCards(res);
+         })
+      })
+
+      function createCards(res) {
          for (var i = 0; i < res.length; i++) {
             var newCard = $("<div>").addClass("card p-4 m-4");
-            
-            var snippet = $("<pre>")
-            var code = $("<code>").addClass(snippetLanguage);
+
+            var snippet = $("<pre>");
+            var code = $("<code>");
             code.text(res[i].snippet);
             snippet.append(code);
 
             var language = $("<h4>").text(res[i].language);
             var tags = $("<h6>").text(res[i].tags);
             var description = $("<p>").text(res[i].description)
-            
+
             newCard.append(snippet, language, tags, description);
 
             $("#dashboard-display").append(newCard);
-            console.log(res[i]);
          }
-      })
+      }
 
    })
-})
 </script>
