@@ -86,7 +86,6 @@ body {
 .language {
    padding: 10px 20px;
    font-size: 20px;
-   /* font-weight: bold; */
 }
 
 .tag {
@@ -98,6 +97,7 @@ body {
    background-color: rgb(235, 235, 235);
    width: 100%;
    padding: 0;
+
    height: 90%;
    width: 75%;
    position: fixed;

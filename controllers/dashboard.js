@@ -121,6 +121,20 @@ router.delete("/dashboard/deleteSnippet", function (req, res) {
 });
 
 // route for /dashboard/:language
+router.get("/api/dashboard/:language", function(req, res) {
+   var language = req.params.language;
+   var authorID = 1;
+
+   db.Snippets.findAll({
+      where: {
+         authorId: authorID,
+         language: language
+      }
+   }).then(function(result) {
+      res.json(result);
+   });
+
+})
 // route for /dashboard/language/:tag
 
 module.exports = router;

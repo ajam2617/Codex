@@ -7,7 +7,7 @@
          <div class="col-3" id="dashboard-nav">
             {{#each languages}}
             <div class="language-container">
-               <div class="language">
+               <div class="language" data-lang="{{language}}">
                   {{language}}
                </div>
 
@@ -26,3 +26,37 @@
       </div>
    </div>
 </div>
+
+<script>
+$(function() {
+   $(".language").on("click", function() {
+
+      var snippetLanguage = $(this).attr("data-lang")
+      var queryURL = "/api/dashboard/" + snippetLanguage;
+
+      $.get(queryURL).then(function(res) {
+
+         $("#dashboard-display").empty();
+
+         for (var i = 0; i < res.length; i++) {
+            var newCard = $("<div>").addClass("card p-4 m-4");
+            
+            var snippet = $("<pre>")
+            var code = $("<code>").addClass(snippetLanguage);
+            code.text(res[i].snippet);
+            snippet.append(code);
+
+            var language = $("<h4>").text(res[i].language);
+            var tags = $("<h6>").text(res[i].tags);
+            var description = $("<p>").text(res[i].description)
+            
+            newCard.append(snippet, language, tags, description);
+
+            $("#dashboard-display").append(newCard);
+            console.log(res[i]);
+         }
+      })
+
+   })
+})
+</script>
