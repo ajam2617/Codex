@@ -41,20 +41,15 @@
       $(".tag").hide();
 
       $(".language").on("click", function () {
-
          var id = $(this).attr("data-lang");
-
          console.log(id);
-
          $("#" + id + " .tag").toggle();
       });
 
       $(".language").on("click", function () {
-
          var active = $(this).attr("data-active");
-
+        
          if (active === "false") {
-
             $(this).attr("data-active", "true");
 
             var snippetLanguage = $(this).attr("data-lang");
@@ -66,11 +61,9 @@
                $("#dashboard-display").append(langTitle);
                createCards(res);
             })
-
          } else {
             $(this).attr("data-active", "false");
          }
-
       })
 
       $(".tag").on("click", function () {
@@ -97,7 +90,7 @@
             var tags = $("<p>").text("Tags: " + res[i].tags).addClass("font-weight-bold");
             var description = $("<p>").text("Description: " + res[i].description).addClass("font-weight-bold");
 
-            var deleteButton = $("<button>").attr("id", "deleteSnippet").attr("data-id", res[i].id).text("Delete Snippet").addClass("btn btn-success mt-3");
+            var deleteButton = $("<button>").attr("id", "deleteSnippet").attr("data-id", res[i].id).text("Delete Snippet").addClass("btn delete-button mt-3");
 
             newCard.append(snippet, language, tags, description, deleteButton);
 
@@ -118,7 +111,7 @@
          var tagInput = $("<input>").attr("type", "text").attr("id", "contentTags").addClass("form-control");
          var descLabel = $("<label>").text("Description").addClass("mt-3");
          var descInput = $("<input>").attr("type", "text").attr("id", "contentDescription").addClass("form-control");
-         var submit = $("<button>").attr("type", "submit").text("Submit").addClass("btn btn-success mt-3")
+         var submit = $("<button>").attr("type", "submit").text("Submit").addClass("btn submit-button mt-3")
 
          newForm.append(snippetLabel, snippetInput, langLabel, langInput, tagLabel, tagInput, descLabel, descInput, submit);
          newCard.append(newForm);
