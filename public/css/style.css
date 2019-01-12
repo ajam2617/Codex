@@ -133,6 +133,7 @@ body {
    padding: 10px 20px;
    font-size: 20px;
    transition: color 300ms;
+   opacity: 0;
 }
 
 .language:hover {

@@ -14,7 +14,7 @@ router.get("/", function (req, res) {
    //    // res.json(result);
    // });
 
-   res.render("test");
+   res.render("index");
 });
 
 module.exports = router;

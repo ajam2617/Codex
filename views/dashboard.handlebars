@@ -22,7 +22,7 @@
 
                {{#each tags}}
                <div class="tag" data-tag="{{tag}}">
-                  {{tag}}
+                  <div>{{tag}}</div>
                </div>
                {{/each}}
 
@@ -40,6 +40,17 @@
    $(function () {
 
       $(".tag").hide();
+
+      anime.timeline({
+         easing: 'easeOutExpo',
+      })
+      .add({
+         targets: '.language',
+         opacity: [0, 1],
+         translateX: [-250, 0],
+         duration: 1000,
+         delay: (el, i) => 100 * i
+      })
 
       $(".language").on("click", function () {
          var id = $(this).attr("data-lang");
@@ -103,7 +114,7 @@
 
             $("#dashboard-display").append(newCard);
 
-            $("pre code").each(function(i, e) {hljs.highlightBlock(e)});
+            $("pre code").each(function (i, e) { hljs.highlightBlock(e) });
          }
       }
 
@@ -211,7 +222,7 @@
             method: "PUT",
             url: "/dashboard/updateSnippet",
             data: updateSnippet
-         }).then(function(res) {
+         }).then(function (res) {
             location.reload();
          })
       })
