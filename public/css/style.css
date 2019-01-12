@@ -142,6 +142,7 @@ body {
 
 .tag {
    border-top: 1px solid rgb(235, 235, 235);
+   background-color: rgb(46, 55, 69);
    padding: 5px 40px;
    transition: color 300ms;
 }
