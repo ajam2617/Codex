@@ -44,7 +44,8 @@ router.get("/dashboard", function (req, res) {
 
       // will hold array of all unique languages to be passed to dashboard template
       var hbsObject = {
-         languages: []
+         languages: [],
+         id: activeUserId
       };
 
       for (var key in tracker) {
@@ -123,9 +124,9 @@ router.delete("/dashboard/deleteSnippet", function (req, res) {
 });
 
 // route for /dashboard/:language
-router.get("/api/dashboard/:language", function(req, res) {
+router.get("/api/dashboard/:language/:id", function(req, res) {
    var language = req.params.language;
-   var authorID = 1;
+   var authorID = req.params.id;
 
    db.Snippets.findAll({
       where: {
@@ -135,13 +136,12 @@ router.get("/api/dashboard/:language", function(req, res) {
    }).then(function(result) {
       res.json(result);
    });
-
 })
 // route for /dashboard/language/:tag
-router.get("/api/dashboard/:language/:tag", function(req, res) {
+router.get("/api/dashboard/:language/:id/:tag", function(req, res) {
    var language = req.params.language;
    var tag = req.params.tag;
-   var authorID = 1;
+   var authorID = req.params.id;
 
    // console.log(language, tag);
 

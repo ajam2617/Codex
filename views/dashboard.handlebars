@@ -12,16 +12,16 @@
    </nav>
    <div class="container-fluid" id="dashboard-container">
       <div class="row">
-         <div class="col-3" id="dashboard-nav">
-            <div id="new-snippet-button">+ New Snippet</div>
+         <div class="col-3" id="dashboard-nav" data-id="{{id}}">
+            <div id="new-snippet-button" class="disable-selection">+ New Snippet</div>
             {{#each languages}}
-            <div class="language-container" id="{{language}}">
+            <div class="language-container disable-selection" id="{{language}}">
                <div class="language" data-lang="{{language}}" data-active="false">
                   {{language}}
                </div>
 
                {{#each tags}}
-               <div class="tag" data-tag="{{tag}}">
+               <div class="tag disable-selection" data-tag="{{tag}}">
                   <div>{{tag}}</div>
                </div>
                {{/each}}
@@ -65,8 +65,9 @@
          if (active === "false") {
             $(this).attr("data-active", "true");
 
+            var userId = $("#dashboard-nav").attr("data-id");
             var snippetLanguage = $(this).attr("data-lang");
-            var queryURL = "/api/dashboard/" + snippetLanguage;
+            var queryURL = "/api/dashboard/" + snippetLanguage + "/" + userId
 
             $.get(queryURL).then(function (res) {
                $("#dashboard-display").empty();
@@ -80,9 +81,10 @@
       })
 
       $(".tag").on("click", function () {
+         var userId = $("#dashboard-nav").attr("data-id");
          var snippetLanguage = $(this).parent().attr("id")
          var snippetTag = $(this).attr("data-tag")
-         var queryURL = "/api/dashboard/" + snippetLanguage + "/" + snippetTag;
+         var queryURL = "/api/dashboard/" + snippetLanguage + "/" + userId + "/" + snippetTag;
 
          $.get(queryURL).then(function (res) {
             $("#dashboard-display").empty();
@@ -143,12 +145,16 @@
       $(document).on("submit", "#newSnippet", function (event) {
          event.preventDefault();
 
+         var id = $("#dashboard-nav").attr("data-id");
+
+         console.log(id);
+
          var newSnippet = {
             snippet: $("#contentSnippet").val(),
             language: $("#contentLanguage").val().trim(),
             tags: $("#contentTags").val().trim(),
             description: $("#contentDescription").val().trim(),
-            authorID: 1
+            authorID: id
          }
 
          $.post("/dashboard/newSnippet", newSnippet).then(function (res) {

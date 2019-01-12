@@ -151,6 +151,12 @@ body {
    color: #40bff5;
 }
 
+.disable-selection {
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer */
+   -webkit-user-select: none; /* Chrome, Safari, and Opera */
+}
+
 #dashboard-display {
    background-color: rgb(235, 235, 235);
    width: 100%;
