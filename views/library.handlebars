@@ -15,6 +15,7 @@
    <div class="container-fluid" id="dashboard-container">
       <div class="row">
          <div class="col-3" id="dashboard-nav">
+            <div id="page-title" class="disable-selection">Codex Library</div>
             {{#each languages}}
             <div class="language-container" id="{{language}}">
                <div class="language" data-lang="{{language}}" data-active="false">
@@ -40,9 +41,80 @@
 
    $(".tag").hide();
 
+   // animates ".language" divs so they slide in when page loads
+   anime.timeline({
+      easing: 'easeOutExpo',
+   })
+      .add({
+         targets: '.language',
+         opacity: [0, 1],
+         translateX: [-250, 0],
+         duration: 1000,
+         offset: '+=250',
+         delay: (el, i) => 100 * i
+      })
+
    $(".language").on("click", function () {
       var id = $(this).attr("data-lang");
       console.log(id);
       $("#" + id + " .tag").toggle();
    });
+
+   // helper function for event listeners (2.) and (_.). Used to create all the code snippet cards.
+   function createCards(res) {
+      for (var i = 0; i < res.length; i++) {
+
+         var newCard = $("<div>").addClass("card p-4 m-4");
+
+         var snippet = $("<pre>");
+         var code = $("<code>");
+         code.text(res[i].snippet);
+         snippet.append(code);
+
+         var language = $("<p>").text("Language: " + res[i].language).addClass("font-weight-bold");
+         var tags = $("<p>").text("Tags: " + res[i].tags).addClass("font-weight-bold");
+         var description = $("<p>").text("Description: " + res[i].description).addClass("font-weight-bold mb-0");
+
+         newCard.append(snippet, language, tags, description);
+
+         $("#dashboard-display").append(newCard);
+
+         $("pre code").each(function (i, e) { hljs.highlightBlock(e) });
+      }
+   }
+
+
+   $(".language").on("click", function () {
+      var active = $(this).attr("data-active");
+
+      if (active === "false") {
+         $(this).attr("data-active", "true");
+
+         var snippetLanguage = $(this).attr("data-lang");
+         var queryURL = "/api/library/" + snippetLanguage;
+
+         $.get(queryURL).then(function (res) {
+            $("#dashboard-display").empty();
+            var langTitle = $("<h2>").text(snippetLanguage + " Snippets").addClass("m-4");
+            $("#dashboard-display").append(langTitle);
+            createCards(res);
+         })
+      } else {
+         $(this).attr("data-active", "false");
+      }
+   })
+
+
+   $(".tag").on("click", function () {
+      var snippetLanguage = $(this).parent().attr("id")
+      var snippetTag = $(this).attr("data-tag")
+      var queryURL = "/api/library/" + snippetLanguage + "/" + snippetTag;
+
+      $.get(queryURL).then(function (res) {
+         $("#dashboard-display").empty();
+         var langTitle = $("<h2>").text(snippetLanguage + " Snippets").addClass("m-4");
+         $("#dashboard-display").append(langTitle);
+         createCards(res);
+      })
+   })   
 </script>

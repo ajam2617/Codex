@@ -5,9 +5,6 @@
          <span class="navbar-brand mb-0 h1">Codex</span>
       </div>
       <div class="col-8 d-flex justify-content-end">
-         {{!-- <input type="search" id="search-bar"> --}}
-         <a href="/library" class="btn active mr-3" id="library-button">Library</a>
-         <span id="nav-separator"></span>
          <a href="/signin" class="btn active" id="sign-in-button">Sign In</a>
       </div>
    </nav>
@@ -17,7 +14,7 @@
 
          <div class="col-lg-6 col-md-12">
             <div class="container card" id="tutorial">
-               <h3 class="mb-3">
+               <h3 class="mb-3 mt-3">
                   How Codex Works
                </h3>
                <div class="row">
@@ -53,13 +50,21 @@
          {{!-- outline this div --}}
          <div class="col-lg-6 col-md-12">
             <div class="card" id="recentSnips">
-               <h3>Recent Snippets</h3>
+               <h3 class="text-center mt-3">Recent Snippets</h3>
+               <div id="recent-snippets-display">
+
+                  {{#each snippets}}
+                     <div class="m-3">
+                        <pre><code>{{snippet}}</code></pre>
+                        <p class="pl-4"><strong>Language: </strong> {{language}}</p>
+                        <p class="pl-4"><strong>Description: </strong> {{description}}</p>
+                        <hr>
+                     </div>
+                  {{/each}}
+
+               </div>
             </div>
          </div>
 
       </div>
    </div>
-
-   <script>
-
-   </script>

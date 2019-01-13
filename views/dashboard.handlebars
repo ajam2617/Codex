@@ -21,6 +21,7 @@
          <div class="col-3" id="dashboard-nav" data-id="{{id}}">
             
             {{!-- (1.) This div acts as the "+ New Snippet" button and uses event listener (1.) in the script below --}}
+            <div id="page-title" class="disable-selection">Your Dashboard</div>
             <div id="new-snippet-button" class="disable-selection">+ New Snippet</div>
             {{#each languages}}
             
@@ -118,7 +119,7 @@
          })
       })
 
-      // helper function for event listeners (2.) and (_.). Used to create all the code snippet cards.
+      // helper function for event listeners (2.) and (3.). Used to create all the code snippet cards.
       function createCards(res) {
          for (var i = 0; i < res.length; i++) {
 

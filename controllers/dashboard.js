@@ -17,10 +17,6 @@ router.get("/dashboard", function (req, res) {
       }
    }).then(function (snippetData) {
 
-      // for (var i = 0; i < snippetData.length; i++) {
-      //    console.log(snippetData[i].dataValues);
-      // }
-
       // Will hold one of each language found in database
       var tracker = {};
 
