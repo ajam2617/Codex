@@ -12,14 +12,23 @@
    </nav>
    <div class="container-fluid" id="dashboard-container">
       <div class="row">
+         
+         {{!-- The 'dashboard-nav' is the black sidebar with the buttons for each language and all the tags. --}}
          <div class="col-3" id="dashboard-nav" data-id="{{id}}">
+            
+            {{!-- (1.) This div acts as the "+ New Snippet" button and uses event listener (1.) in the script below --}}
             <div id="new-snippet-button" class="disable-selection">+ New Snippet</div>
             {{#each languages}}
+            
+            {{!-- Each language and all of its associated tags are wrapped in a ".language-container" div --}}
             <div class="language-container disable-selection" id="{{language}}">
+               
+               {{!-- Each language button (e.g. "Javascript" button) is then wrapped in a child ".language" div. The "data-lang" attribute is used in event listener (2.) to search the database using the language name--}}
                <div class="language" data-lang="{{language}}" data-active="false">
                   {{language}}
                </div>
 
+               {{!-- Each tag button is wrapped in a child ".tag" div. The "data-tag" attribute is used in event listener (3.) to search the database using the tag name--}}
                {{#each tags}}
                <div class="tag disable-selection" data-tag="{{tag}}">
                   <div>{{tag}}</div>
@@ -39,8 +48,10 @@
 <script>
    $(function () {
 
+      // hides all ".tag" divs on page load so they do not show until user clicks on the ".language div"
       $(".tag").hide();
 
+      // animates ".language" divs so they slide in when page loads
       anime.timeline({
          easing: 'easeOutExpo',
       })
@@ -53,47 +64,57 @@
          delay: (el, i) => 100 * i
       })
 
+      // toggles whether the ".tag" divs are hidden or shown
       $(".language").on("click", function () {
          var id = $(this).attr("data-lang");
          console.log(id);
          $("#" + id + " .tag").toggle();
       });
 
-      $(".language").on("click", function () {
-         var active = $(this).attr("data-active");
+      // (1.) Event listener for the "+ New Snippet" button. Dynamically generates a form for creating a new snippet and appends it to the "#dashboard-display" div.
+      $("#new-snippet-button").on("click", function () {
+         $("#dashboard-display").empty();
 
-         if (active === "false") {
-            $(this).attr("data-active", "true");
+         var newCard = $("<div>").addClass("card p-4 m-4");
+         var newForm = $("<form>").attr("id", "newSnippet");
+         var snippetLabel = $("<label>").text("Snippet");
+         var snippetInput = $("<textarea>").attr("cols", "50").attr("rows", "10").attr("id", "contentSnippet").addClass("form-control");
+         var langLabel = $("<label>").text("Language").addClass("mt-3");
+         var langInput = $("<input>").attr("type", "text").attr("id", "contentLanguage").addClass("form-control");
+         var tagLabel = $("<label>").text("Tags (For now, put commas between each tag. No spaces.)").addClass("mt-3");
+         var tagInput = $("<input>").attr("type", "text").attr("id", "contentTags").addClass("form-control");
+         var descLabel = $("<label>").text("Description").addClass("mt-3");
+         var descInput = $("<input>").attr("type", "text").attr("id", "contentDescription").addClass("form-control");
+         var submit = $("<button>").attr("type", "submit").text("Submit").addClass("btn submit-button mt-3")
 
-            var userId = $("#dashboard-nav").attr("data-id");
-            var snippetLanguage = $(this).attr("data-lang");
-            var queryURL = "/api/dashboard/" + snippetLanguage + "/" + userId
+         newForm.append(snippetLabel, snippetInput, langLabel, langInput, tagLabel, tagInput, descLabel, descInput, submit);
+         newCard.append(newForm);
 
-            $.get(queryURL).then(function (res) {
-               $("#dashboard-display").empty();
-               var langTitle = $("<h2>").text(snippetLanguage + " Snippets").addClass("m-4");
-               $("#dashboard-display").append(langTitle);
-               createCards(res);
-            })
-         } else {
-            $(this).attr("data-active", "false");
-         }
+         $("#dashboard-display").append(newCard);
       })
 
-      $(".tag").on("click", function () {
-         var userId = $("#dashboard-nav").attr("data-id");
-         var snippetLanguage = $(this).parent().attr("id")
-         var snippetTag = $(this).attr("data-tag")
-         var queryURL = "/api/dashboard/" + snippetLanguage + "/" + userId + "/" + snippetTag;
+      // (1A.) Submits all info from "#newSnippet" form to create new snippet in db.
+      $(document).on("submit", "#newSnippet", function (event) {
+         event.preventDefault();
 
-         $.get(queryURL).then(function (res) {
-            $("#dashboard-display").empty();
-            var langTitle = $("<h2>").text(snippetLanguage + " Snippets").addClass("m-4");
-            $("#dashboard-display").append(langTitle);
-            createCards(res);
+         var id = $("#dashboard-nav").attr("data-id");
+
+         console.log(id);
+
+         var newSnippet = {
+            snippet: $("#contentSnippet").val(),
+            language: $("#contentLanguage").val().trim(),
+            tags: $("#contentTags").val().trim(),
+            description: $("#contentDescription").val().trim(),
+            authorID: id
+         }
+
+         $.post("/dashboard/newSnippet", newSnippet).then(function (res) {
+            location.reload();
          })
       })
 
+      // helper function for event listeners (2.) and (_.). Used to create all the code snippet cards.
       function createCards(res) {
          for (var i = 0; i < res.length; i++) {
 
@@ -121,47 +142,44 @@
          }
       }
 
-      $("#new-snippet-button").on("click", function () {
-         $("#dashboard-display").empty();
+      // (2.) Makes "GET" request to the "/api/dashboard/:language/:id" route. Uses the "createCards" function to dynamically generate one card for each code snippet. Appends all code snippet cards to "#dashboard-display" div.
+      $(".language").on("click", function () {
+         var active = $(this).attr("data-active");
 
-         var newCard = $("<div>").addClass("card p-4 m-4");
-         var newForm = $("<form>").attr("id", "newSnippet");
-         var snippetLabel = $("<label>").text("Snippet");
-         var snippetInput = $("<textarea>").attr("cols", "50").attr("rows", "10").attr("id", "contentSnippet").addClass("form-control");
-         var langLabel = $("<label>").text("Language").addClass("mt-3");
-         var langInput = $("<input>").attr("type", "text").attr("id", "contentLanguage").addClass("form-control");
-         var tagLabel = $("<label>").text("Tags (For now, put commas between each tag. No spaces.)").addClass("mt-3");
-         var tagInput = $("<input>").attr("type", "text").attr("id", "contentTags").addClass("form-control");
-         var descLabel = $("<label>").text("Description").addClass("mt-3");
-         var descInput = $("<input>").attr("type", "text").attr("id", "contentDescription").addClass("form-control");
-         var submit = $("<button>").attr("type", "submit").text("Submit").addClass("btn submit-button mt-3")
+         if (active === "false") {
+            $(this).attr("data-active", "true");
 
-         newForm.append(snippetLabel, snippetInput, langLabel, langInput, tagLabel, tagInput, descLabel, descInput, submit);
-         newCard.append(newForm);
+            var userId = $("#dashboard-nav").attr("data-id");
+            var snippetLanguage = $(this).attr("data-lang");
+            var queryURL = "/api/dashboard/" + snippetLanguage + "/" + userId
 
-         $("#dashboard-display").append(newCard);
+            $.get(queryURL).then(function (res) {
+               $("#dashboard-display").empty();
+               var langTitle = $("<h2>").text(snippetLanguage + " Snippets").addClass("m-4");
+               $("#dashboard-display").append(langTitle);
+               createCards(res);
+            })
+         } else {
+            $(this).attr("data-active", "false");
+         }
       })
 
-      $(document).on("submit", "#newSnippet", function (event) {
-         event.preventDefault();
+      // (3.) Makes "GET" request to "/api/dashboard/:language/:id/:tag" route. Uses "createCards" function to dynamically generate snippet cards.
+      $(".tag").on("click", function () {
+         var userId = $("#dashboard-nav").attr("data-id");
+         var snippetLanguage = $(this).parent().attr("id")
+         var snippetTag = $(this).attr("data-tag")
+         var queryURL = "/api/dashboard/" + snippetLanguage + "/" + userId + "/" + snippetTag;
 
-         var id = $("#dashboard-nav").attr("data-id");
-
-         console.log(id);
-
-         var newSnippet = {
-            snippet: $("#contentSnippet").val(),
-            language: $("#contentLanguage").val().trim(),
-            tags: $("#contentTags").val().trim(),
-            description: $("#contentDescription").val().trim(),
-            authorID: id
-         }
-
-         $.post("/dashboard/newSnippet", newSnippet).then(function (res) {
-            location.reload();
+         $.get(queryURL).then(function (res) {
+            $("#dashboard-display").empty();
+            var langTitle = $("<h2>").text(snippetLanguage + " Snippets").addClass("m-4");
+            $("#dashboard-display").append(langTitle);
+            createCards(res);
          })
       })
 
+      // (4.) The "createCards" function adds a "Delete Snippet" button that uses this event listener. This event makes a "DELETE" request to the "/dashboard/deleteSnippet" route.
       $(document).on("click", ".delete-button", function (event) {
 
          var id = $(this).attr("data-id");
@@ -179,6 +197,7 @@
          });
       })
 
+      // (5.) The "createCards" function adds an "Edit Snippet" button that uses this event listener. This event first makes a "GET" request to the "/api/getby/:id" route. This gets all the snippets info and then dynamically generates a form containing all the snippets info. After that event listener (6.) is used to submit the editted snippet info.
       $(document).on("click", ".edit-button", function (event) {
 
          var id = $(this).attr("data-id");
@@ -210,6 +229,7 @@
          })
       })
 
+      // (6.) Submits the info in the "#editSnippet" form, using a "PUT" request to save the new info to the database.
       $(document).on("submit", "#editSnippet", function (event) {
          event.preventDefault();
 
