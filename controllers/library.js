@@ -14,7 +14,7 @@ router.get("/library", function (req, res) {
       }
    })
 
-   // res.render("/library");
+   res.render("library");
 });
 
 //route for saving snippet

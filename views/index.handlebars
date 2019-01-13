@@ -1,75 +1,65 @@
+{{!-- nav bar with button routes --}}
 <div class="container-fluid" id="navBar">
-   <div class="row">
-      <div class="col-10" id="displayName">
-         <br>
-         Hello UserName!
+   <nav class="navbar navbar-light bg-light root-nav" id="codex-navbar">
+      <div class="col-4">
+         <span class="navbar-brand mb-0 h1">Codex</span>
       </div>
-      <div class="col-1">
-         <a href="library.handlebars" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Library</a>
-
+      <div class="col-8 d-flex justify-content-end">
+         {{!-- <input type="search" id="search-bar"> --}}
+         <a href="/library" class="btn active mr-3" id="library-button">Library</a>
+         <span id="nav-separator"></span>
+         <a href="/signin" class="btn active" id="sign-in-button">Sign In</a>
       </div>
-      <div class="col-1">
-         <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Log In</a>
+   </nav>
+   <div class="container-fluid" id="root-content">
 
-      </div>
-   </div>
-</div>
-<hr>
-<div class="container-fluid">
+      <div class="row">
 
-   <div class="row">
+         <div class="col-lg-6 col-md-12">
+            <div class="container card" id="tutorial">
+               <h3 class="mb-3">
+                  How Codex Works
+               </h3>
+               <div class="row">
+                  <div class="col-sm">
+                     <img src="images/copy.png" class="icons">
+                  </div>
+                  <div class="col-sm">
+                     <img src="images/dashboard.png" class="icons">
+                  </div>
 
-      <div class="col-6">
-         {{!-- image logo needs to be inserted --}}
-
-         <div class="container" id="tutorial">
-            How Codex Works
-            <br>
-            <br>
-            <div class="row">
-               <div class="col-sm">
-                  <img src="./images/copy.png" class="icons">
+                  <div class="col-sm">
+                     <img src="images/searchcloud.png" class="icons">
+                  </div>
                </div>
-               <div class="col-sm">
-                  <img src="./images/dashboard.png" class="icons">
+               <div class="row mb-3">
+                  <div class="col-sm">
+                     Copy and Paste your favorite code snippet
+                  </div>
+                  <div class="col-sm">
+                     The snippet will be saved to your dashboard
+                  </div>
+                  <div class="col-sm">
+                     Seach our library for snippets other users have submitted
+                  </div>
                </div>
-
-               <div class="col-sm">
-                  <img src="./images/searchcloud.png" class="icons">
-               </div>
+               {{!-- need to insert route to page on button click --}}
+               <center><a href="/signup" class="btn btn-secondary btn-lg active mt-3 mb-3" id="getStarted" role="button"
+                     aria-pressed="true">Get
+                     Started</a></center>
             </div>
-            <div class="row">
-               <div class="col-sm">
-                  Copy and Paste your favorite code snippet
-               </div>
-               <div class="col-sm">
-                  The snippet will be saved to your dashboard
-               </div>
-               <div class="col-sm">
-                  Seach our library for snippets other users have submitted
-               </div>
 
+         </div>
+         {{!-- outline this div --}}
+         <div class="col-lg-6 col-md-12">
+            <div class="card" id="recentSnips">
+               <h3>Recent Snippets</h3>
             </div>
          </div>
 
-         <br>
-         <br>
-         <br>
-         {{!-- need to insert route to page on button click --}}
-         <a href="#" class="btn btn-secondary btn-lg active" id="getStarted" role="button" aria-pressed="true">Get
-            Started</a>
-
       </div>
-      {{!-- outline this div --}}
-      <div class="col-5" id="recentSnips">
-         <h3>Recent Snippets</h3>
-
-      </div>
-
    </div>
 
-</div>
+   <script>
 
-<script>
-
-</script>
+   </script>

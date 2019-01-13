@@ -1,13 +1,17 @@
 <div id="main-container">
    <nav class="navbar navbar-light bg-light" id="codex-navbar">
       <div class="col-4">
-         <span class="navbar-brand mb-0 h1">CODEX</span>
+         <a href="/">
+            <span class="navbar-brand mb-0 h1">CODEX</span>
+         </a>
       </div>
       <div class="col-8 d-flex justify-content-end">
-         <input type="search" id="search-bar">
-         <button id="search-button">Search</button>
-         <span id="nav-separator">|</span>
-         <button id="login-button">Login</button>
+         <a href="/library">
+            <button id="library-button" class="mr-3">Library</button>
+         </a>
+         <a href="/logout">
+            <button id="login-button">Logout</button>
+         </a>
       </div>
    </nav>
    <div class="container-fluid" id="dashboard-container">

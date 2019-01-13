@@ -1,0 +1,48 @@
+<div id="main-container">
+   <nav class="navbar navbar-light bg-light" id="codex-navbar">
+      <div class="col-4">
+         <span class="navbar-brand mb-0 h1">CODEX</span>
+      </div>
+      <div class="col-8 d-flex justify-content-end">
+         <a href="/dashboard">
+            <button id="library-button" class="mr-3">Dashboard</button>
+         </a>
+         <a href="/logout">
+            <button id="login-button">Logout</button>
+         </a>
+      </div>
+   </nav>
+   <div class="container-fluid" id="dashboard-container">
+      <div class="row">
+         <div class="col-3" id="dashboard-nav">
+            {{#each languages}}
+            <div class="language-container" id="{{language}}">
+               <div class="language" data-lang="{{language}}" data-active="false">
+                  {{language}}
+               </div>
+
+               {{#each tags}}
+               <div class="tag" data-tag="{{tag}}">
+                  {{tag}}
+               </div>
+               {{/each}}
+
+            </div>
+            {{/each}}
+         </div>
+         <div class="col-9" id="dashboard-display">
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+
+   $(".tag").hide();
+
+   $(".language").on("click", function () {
+      var id = $(this).attr("data-lang");
+      console.log(id);
+      $("#" + id + " .tag").toggle();
+   });
+</script>
