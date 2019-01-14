@@ -34,6 +34,10 @@ _This Full stack site should be run in Node and requires npm installs for all re
 - [x] Provide Proposal with libraries used, user stories, models, and stretch goals
 - [ ] _Stretch Goal_ Section of the app for algorithm practice
 - [ ] _Stretch Goal_ Predictive text in search field or dropdown menu
+- [ ] _Stretch Goal_ Search Feature
+- [ ] _Stretch Goal_ Additional validations
+- [ ] _Stretch Goal_ Saved snippets and favorite snippet functionality
+- [ ] _Stretch Goal_ Add Project id to organize snippets for individual projects
 
 ## Resources
 
