@@ -71,9 +71,11 @@
          code.text(res[i].snippet);
          snippet.append(code);
 
-         var language = $("<p>").text("Language: " + res[i].language).addClass("font-weight-bold");
-         var tags = $("<p>").text("Tags: " + res[i].tags).addClass("font-weight-bold");
-         var description = $("<p>").text("Description: " + res[i].description).addClass("font-weight-bold mb-0");
+         var language = $("<p>").html("<strong>Language: </strong>" + res[i].language);
+         var splitTags = res[i].tags.split(",");
+         var spacedTags = splitTags.join(", ");
+         var tags = $("<p>").html("<strong>Tags: </strong>" + spacedTags);
+         var description = $("<p>").html("<strong>Description: </strong>" + res[i].description);
 
          newCard.append(snippet, language, tags, description);
 

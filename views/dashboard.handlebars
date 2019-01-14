@@ -86,7 +86,7 @@
          var snippetInput = $("<textarea>").attr("cols", "50").attr("rows", "10").attr("id", "contentSnippet").addClass("form-control");
          var langLabel = $("<label>").text("Language").addClass("mt-3");
          var langInput = $("<input>").attr("type", "text").attr("id", "contentLanguage").addClass("form-control");
-         var tagLabel = $("<label>").text("Tags (For now, put commas between each tag. No spaces.)").addClass("mt-3");
+         var tagLabel = $("<label>").text("Tags").addClass("mt-3");
          var tagInput = $("<input>").attr("type", "text").attr("id", "contentTags").addClass("form-control");
          var descLabel = $("<label>").text("Description").addClass("mt-3");
          var descInput = $("<input>").attr("type", "text").attr("id", "contentDescription").addClass("form-control");
@@ -130,9 +130,11 @@
             code.text(res[i].snippet);
             snippet.append(code);
 
-            var language = $("<p>").text("Language: " + res[i].language).addClass("font-weight-bold");
-            var tags = $("<p>").text("Tags: " + res[i].tags).addClass("font-weight-bold");
-            var description = $("<p>").text("Description: " + res[i].description).addClass("font-weight-bold");
+            var language = $("<p>").html("<strong>Language: </strong>" + res[i].language);
+            var splitTags = res[i].tags.split(",");
+            var spacedTags = splitTags.join(", ");
+            var tags = $("<p>").html("<strong>Tags: </strong>" + spacedTags);
+            var description = $("<p>").html("<strong>Description: </strong>" + res[i].description);
 
             var btnContainer = $("<div>").addClass("container").addClass("p-0");
             var deleteButton = $("<button>").attr("data-id", res[i].id).text("Delete Snippet").addClass("btn delete-button mr-3");
@@ -221,7 +223,7 @@
             var snippetInput = $("<textarea>").attr("cols", "50").attr("rows", "10").attr("id", "contentSnippet").addClass("form-control").text(res.snippet);
             var langLabel = $("<label>").text("Language").addClass("mt-3");
             var langInput = $("<textarea>").attr("id", "contentLanguage").addClass("form-control").attr("rows", "1").text(res.language);
-            var tagLabel = $("<label>").text("Tags (For now, put commas between each tag. No spaces.)").addClass("mt-3");
+            var tagLabel = $("<label>").text("Tags").addClass("mt-3");
             var tagInput = $("<textarea>").attr("id", "contentTags").addClass("form-control").attr("rows", "1").text(res.tags);
             var descLabel = $("<label>").text("Description").addClass("mt-3");
             var descInput = $("<textarea>").attr("id", "contentDescription").addClass("form-control").attr("rows", "1").text(res.description);
