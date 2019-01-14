@@ -24,7 +24,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-
 // Initialize passport, express session and passport session
 app.use(session({
   secret: 'keyboard cat', // "should not be exposed for production environment"
@@ -33,7 +32,6 @@ app.use(session({
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
 
 
 // Use Handlebars
@@ -49,17 +47,13 @@ app.use(require("./controllers/root.js"));
 app.use(require("./controllers/dashboard.js"));
 // library page routes
 app.use(require("./controllers/library.js"));
-// registration page routes
-app.use(require("./controllers/registration.js"));
 
 
- 
 // Routes - Import our auth.js file
 var authRoute = require('./controllers/auth.js')(app,passport); // Added passport as an argument to pass its functionality to auth.js
  
 // load passport strategies
 require('./config/passport/passport.js')(passport, db.Users);
-
 
 
 // Syncing our sequelize models and then starting our express app
