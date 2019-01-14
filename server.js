@@ -26,7 +26,7 @@ app.use(express.json());
 
 // Initialize passport, express session and passport session
 app.use(session({
-  secret: 'keyboard cat', // "should not be exposed for production environment"
+  secret: process.env.PASSPORT_SECRET,
   resave: true,
   saveUninitialized: true
 })); // session secret
