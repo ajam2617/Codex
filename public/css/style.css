@@ -21,6 +21,16 @@
    width: 100%;
    max-height: 500px;
 }
+
+.card-header {
+   background: #1a5379;
+   border: 1px solid black;
+   border-bottom: 2px solid black;
+   color: white;
+   border-top-left-radius: 23px!important; 
+   border-top-right-radius: 23px!important; 
+}
+
 #getStarted {
    background: white;
    border: 1px solid #2980b9;
