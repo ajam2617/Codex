@@ -1,7 +1,29 @@
 # :scroll: CODEX  :scroll:
 Our team created a Full Stack Webstie that can store snippets of code that users frequently use or would like to reference at a later time. The site stores all user inputs or uploads, which users can then view on their dashboard and even search the master library by language or tag. 
 
+[_Link to Deloyed Site_](https://dashboard.heroku.com/apps/codex-code-snippet-manager)
+
 # :nut_and_bolt: How it Works :nut_and_bolt:
+
+![TechnicalFlow](/public/images/techFlow.JPG)
+
+![UserFlow](/public/images/userFlow.JPG)
+
+URL | HTTP Verb | Used For
+--- | --------- | --------
+/ | GET | Render landing page and get 10 most recent code snippets in database.
+/dashboard | GET | Render dashboard page. Get all code snippets specific to logged in user.
+/dashboard/newSnippet | POST | Posts new snippets to mySQL database.
+/dashboard/updateSnippet | PUT | Updates snippet on mySQL database.
+/dashboard/deleteSnippet | DELETE | Delete specific from specific user's dashboard.
+/api/dashboard/:language/:id | GET | Grabs all snippets for specific language from mySQL database and renders the dashboard page using jQuery to dynamically display all snippets saved under the specific language.
+/api/dashboard/:language/:id/:tag | GET | Grabs all snippets from specific tag in a specific language from.
+/library | GET | Grabs all snippets ordered by language from the database.
+/library/:language/:id | GET | Grabs all snippets for specific language and displays them on page using handlebars.
+/library/:language/:id/:tag | GET | Grabs all snippets for specific language and tag and displays them on page using handlebars.
+/signin | GET | Renders sign in page and sends user data to mySQL database.
+/signup | POST | Posts new user to database.
+/logout | GET | Logs specific user out and routes them to root page.
 
 
 # :construction_worker: Built With :construction_worker:
@@ -9,9 +31,9 @@ Our team created a Full Stack Webstie that can store snippets of code that users
 * express
 * express-handlebars
 * express-session
-* passport  _(for user authentication)_
+* passport  *(for user authentication)*
 * passport-local
-* highlight.js _(for syntax highlighting)_
+* highlight.js *(for syntax highlighting)*
 * .env
 * sequelize
 * mySQL2
