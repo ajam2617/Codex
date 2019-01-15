@@ -17,7 +17,8 @@ Our team created a Full Stack Webstie that can store snippets of code that users
 * mySQL2
 
 
-_This Full stack site should be run in Node and requires npm installs for all resouces listed above_
+_This Full stack site can be run in Node and requires npm installs for all resouces listed above_
+
 
 # :pushpin: To Do List :pushpin:
 - [x] use _Node_ and _Express_ Web Server
