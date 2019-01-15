@@ -5,10 +5,13 @@ Our team created a Full Stack Webstie that can store snippets of code that users
 
 # :nut_and_bolt: How it Works :nut_and_bolt:
 
+The technical flow of information is: the user submits a snippet, it is sent to our database and stored with a language and a tag and a user id, then the controller displays the information back to the user. 
 ![TechnicalFlow](/public/images/techFlow.JPG)
 
+A user can store personal snippets, or search the main library of all user snippets submitted. 
 ![UserFlow](/public/images/userFlow.JPG)
 
+_Route Information_
 URL | HTTP Verb | Used For
 --- | --------- | --------
 / | GET | Render landing page and get 10 most recent code snippets in database.
