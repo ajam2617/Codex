@@ -1,9 +1,11 @@
 # :scroll: CODEX  :scroll:
 Our team created a Full Stack Webstie that can store snippets of code that users frequently use or would like to reference at a later time. The site stores all user inputs or uploads, which users can then view on their dashboard and even search the master library by language or tag. 
 
-[_Link to Deloyed Site_](https://dashboard.heroku.com/apps/codex-code-snippet-manager)
+[_Link to Deloyed Site_](https://codex-code-snippet-manager.herokuapp.com/)
 
 # :nut_and_bolt: How it Works :nut_and_bolt:
+
+![Dashboard Gif](/public/images/codex-dashboard.gif)
 
 The technical flow of information is: the user submits a snippet, it is sent to our database and stored with a language and a tag and a user id, then the controller displays the information back to the user. 
 ![TechnicalFlow](/public/images/techFlow.JPG)
