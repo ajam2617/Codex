@@ -12,6 +12,7 @@ A user can store personal snippets, or search the main library of all user snipp
 ![UserFlow](/public/images/userFlow.JPG)
 
 _Route Information_
+
 URL | HTTP Verb | Used For
 --- | --------- | --------
 / | GET | Render landing page and get 10 most recent code snippets in database.
