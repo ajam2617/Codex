@@ -70,3 +70,16 @@ _This Full stack site can be run in Node and requires npm installs for all resou
 * Bootstrap
 * flaticon 
 * Node
+
+## Issues
+
+We had a few issues, as a team, that were to be expected. We were tasked with using a library we had not used before. We were able to migrate them into our code more easily than expected. Sifting through documentation and articles were challenging and time consuming, but we were able to attain our goal of a minimum viable product.  
+
+We used the highlight.js library to maintain code syntax of all snippets submitted. As long as you have the CDN and use *pre* and *code* within the html/handlebars, you can achieve a *VS Code* type style to your application. 
+![HighlightJS](/public/images/highlightCode.JPG)
+
+We used the passport npm to handle the user authentication. There is a lot to unpack and was very time consuming to make sure the file structure required for the passport package could work with our file structure we required to use with routes, controllers, sequelize, and handlebars. 
+![PassportAuth](/public/images/passportCode.JPG)
+
+To add some additional styling, we used the anime.js library to include some animations on our site. It's relatively easy to use and adds a nice touch to our side tab. 
+![AnimeJS](http://g.recordit.co/NBFnfPk0tr.gif)
